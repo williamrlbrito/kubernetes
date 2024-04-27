@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: goserver
-          image: "williamrldb/hello-go:v4"
+          image: "williamrldb/hello-go:v5"
           resources:
             limits:
               memory: "128Mi"
