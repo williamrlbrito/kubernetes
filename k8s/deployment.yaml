@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: goserver
-          image: "williamrldb/hello-go:v3"
+          image: "williamrldb/hello-go:v4"
           resources:
             limits:
               memory: "128Mi"
@@ -25,6 +25,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: "goserver-env"
+            - secretRef:
+                name: "goserver-secret"
 
           volumeMounts:
             - name: config
