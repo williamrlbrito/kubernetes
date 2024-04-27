@@ -15,10 +15,26 @@ spec:
         app: "goserver"
     spec:
       containers:
-        - name: "goserver"
+        - name: goserver
           image: "williamrldb/hello-go:v2"
-          env:
-            - name: "NAME"
-              value: "William"
-            - name: "AGE"
-              value: "36"
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+
+          envFrom:
+            - configMapRef:
+                name: "goserver-env"
+
+          # env:
+          #   - name: "NAME"
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: "goserver-env"
+          #         key: "NAME"
+
+          #   - name: "AGE"
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: "goserver-env"
+          #         key: "AGE"
