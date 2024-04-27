@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: goserver
-          image: "williamrldb/hello-go:v2"
+          image: "williamrldb/hello-go:v3"
           resources:
             limits:
               memory: "128Mi"
@@ -26,15 +26,15 @@ spec:
             - configMapRef:
                 name: "goserver-env"
 
-          # env:
-          #   - name: "NAME"
-          #     valueFrom:
-          #       configMapKeyRef:
-          #         name: "goserver-env"
-          #         key: "NAME"
+          volumeMounts:
+            - name: config
+              mountPath: "/go/myfamily"
+              readOnly: true
 
-          #   - name: "AGE"
-          #     valueFrom:
-          #       configMapKeyRef:
-          #         name: "goserver-env"
-          #         key: "AGE"
+      volumes:
+        - name: config
+          configMap:
+            name: "configmap-family"
+            items:
+              - key: "members"
+                path: "family.txt"
