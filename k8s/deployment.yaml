@@ -16,15 +16,23 @@ spec:
     spec:
       containers:
         - name: goserver
-          image: "williamrldb/hello-go:v5"
-          livenessProbe:
+          image: "williamrldb/hello-go:v6"
+          readinessProbe:
             httpGet:
               path: "/healthz"
               port: 8000
-            periodSeconds: 5
-            failureThreshold: 3
-            timeoutSeconds: 1
-            successThreshold: 1
+            periodSeconds: 3
+            failureThreshold: 1
+            initialDelaySeconds: 10
+
+          # livenessProbe:
+          #   httpGet:
+          #     path: "/healthz"
+          #     port: 8000
+          #   periodSeconds: 5
+          #   failureThreshold: 3
+          #   timeoutSeconds: 1
+          #   successThreshold: 1
 
           resources:
             limits:
