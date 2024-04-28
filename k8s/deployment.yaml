@@ -17,14 +17,18 @@ spec:
       containers:
         - name: goserver
           image: "williamrldb/hello-go:v7"
+          startupProbe:
+            httpGet:
+              path: "/healthz"
+              port: 8000
+            periodSeconds: 3
+            failureThreshold: 30
           readinessProbe:
             httpGet:
               path: "/healthz"
               port: 8000
             periodSeconds: 3
             failureThreshold: 1
-            initialDelaySeconds: 10
-
           livenessProbe:
             httpGet:
               path: "/healthz"
@@ -33,24 +37,19 @@ spec:
             failureThreshold: 3
             timeoutSeconds: 1
             successThreshold: 1
-            initialDelaySeconds: 15
-
           resources:
             limits:
               memory: "128Mi"
               cpu: "500m"
-
           envFrom:
             - configMapRef:
                 name: "goserver-env"
             - secretRef:
                 name: "goserver-secret"
-
           volumeMounts:
             - name: config
               mountPath: "/go/myfamily"
               readOnly: true
-
       volumes:
         - name: config
           configMap:
