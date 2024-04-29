@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: goserver
-          image: "williamrldb/hello-go:v7"
+          image: "williamrldb/hello-go:v8"
           startupProbe:
             httpGet:
               path: "/healthz"
